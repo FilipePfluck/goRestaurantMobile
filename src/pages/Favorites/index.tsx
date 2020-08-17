@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Image } from 'react-native';
+import { useFocusEffect } from "@react-navigation/native"
 
 import api from '../../services/api';
 import formatValue from '../../utils/formatValue';
@@ -30,13 +31,19 @@ interface Food {
 const Favorites: React.FC = () => {
   const [favorites, setFavorites] = useState<Food[]>([]);
 
-  useEffect(() => {
-    async function loadFavorites(): Promise<void> {
-      // Load favorite foods from api
-    }
+  const loadFavorites = useCallback(()=>{
+    api.get('/favorites').then(response => {
+      setFavorites(response.data)
+    })
+  },[])
 
-    loadFavorites();
+  useEffect(() => {
+    loadFavorites()
   }, []);
+
+  useFocusEffect(()=>{
+    loadFavorites()
+  })
 
   return (
     <Container>

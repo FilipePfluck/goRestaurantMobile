@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Image, ScrollView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -35,6 +35,7 @@ interface Food {
   price: number;
   thumbnail_url: string;
   formattedPrice: string;
+  category: number;
 }
 
 interface Category {
@@ -45,6 +46,7 @@ interface Category {
 
 const Dashboard: React.FC = () => {
   const [foods, setFoods] = useState<Food[]>([]);
+  const [filteredFoods, setFilteredFoods] = useState<Food[]>([])
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<
     number | undefined
@@ -54,27 +56,69 @@ const Dashboard: React.FC = () => {
   const navigation = useNavigation();
 
   async function handleNavigate(id: number): Promise<void> {
-    // Navigate do ProductDetails page
+    navigation.navigate('FoodDetails', { id })
   }
 
-  useEffect(() => {
-    async function loadFoods(): Promise<void> {
-      // Load Foods from API
-    }
-
-    loadFoods();
-  }, [selectedCategory, searchValue]);
+  useEffect(()=>{
+    api.get('/foods').then(response => {
+      setFoods(response.data)
+      setFilteredFoods(response.data)
+    })
+  },[])
 
   useEffect(() => {
     async function loadCategories(): Promise<void> {
-      // Load categories from API
+      api.get('/categories').then(response => {
+        setCategories(response.data)
+      })
     }
 
     loadCategories();
   }, []);
 
+  useEffect(()=>{
+    let filteredArray = [...foods]
+
+    if(selectedCategory){
+      filteredArray = filteredArray.filter(food => {
+        return food.category === selectedCategory
+      })
+    }
+
+    if(searchValue){
+      filteredArray = filteredArray.filter(food => {
+        const splittedName = food.name.toLowerCase().split('')
+        const splittedSearch = searchValue.toLowerCase().split('')
+        
+        const splittedNameContainsSplittedSearch = splittedSearch.every((element, index, array) => {
+
+          if(index === 0){
+            return splittedName.indexOf(splittedSearch[index]) >= 0
+          }else{
+            return splittedSearch.every((element, index, array)=> {
+              console.log(element)
+
+              return splittedName.includes(element)
+            })
+          }
+
+        })
+
+        if(splittedNameContainsSplittedSearch){
+          return food
+        }
+      })
+    }
+
+    setFilteredFoods(filteredArray)
+  },[selectedCategory, searchValue])
+
   function handleSelectCategory(id: number): void {
-    // Select / deselect category
+    if(selectedCategory === id){
+      setSelectedCategory(undefined)
+    }else{
+      setSelectedCategory(id)
+    }
   }
 
   return (
@@ -125,7 +169,7 @@ const Dashboard: React.FC = () => {
         <FoodsContainer>
           <Title>Pratos</Title>
           <FoodList>
-            {foods.map(food => (
+            {filteredFoods.map(food => (
               <Food
                 key={food.id}
                 onPress={() => handleNavigate(food.id)}
