@@ -44,10 +44,6 @@ const Orders: React.FC = () => {
     loadOrders();
   }, []);
 
-  useFocusEffect(()=>{
-    loadOrders()
-  })
-
   return (
     <Container>
       <Header>

@@ -41,10 +41,6 @@ const Favorites: React.FC = () => {
     loadFavorites()
   }, []);
 
-  useFocusEffect(()=>{
-    loadFavorites()
-  })
-
   return (
     <Container>
       <Header>
