@@ -37,6 +37,10 @@ const Favorites: React.FC = () => {
     })
   },[])
 
+  useFocusEffect(()=>{
+    loadFavorites()
+  })
+
   useEffect(() => {
     loadFavorites()
   }, []);

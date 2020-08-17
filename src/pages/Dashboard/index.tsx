@@ -60,16 +60,16 @@ const Dashboard: React.FC = () => {
   }
 
   useEffect(()=>{
-    api.get('/foods', {
+    api.get('/foods'/* , {
       params: {
         category_like: selectedCategory,
         name_like: searchValue,
       },
-    }).then(response => {
+    } */).then(response => {
       setFoods(response.data)
       setFilteredFoods(response.data)
     })
-  },[selectedCategory, searchValue])
+  },[/* selectedCategory, searchValue */])
 
   useEffect(() => {
     async function loadCategories(): Promise<void> {
@@ -174,7 +174,7 @@ const Dashboard: React.FC = () => {
         <FoodsContainer>
           <Title>Pratos</Title>
           <FoodList>
-            {foods.map(food => (
+            {filteredFoods.map(food => (
               <Food
                 key={food.id}
                 onPress={() => handleNavigate(food.id)}
