@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Image } from 'react-native';
-import { useFocusEffect } from "@react-navigation/native"
+import { useIsFocused } from "@react-navigation/native"
 
 import api from '../../services/api';
 import formatValue from '../../utils/formatValue';
@@ -31,6 +31,8 @@ interface Food {
 const Orders: React.FC = () => {
   const [orders, setOrders] = useState<Food[]>([]);
 
+  const isFocused = useIsFocused()
+
   const loadOrders = useCallback(()=>{
     api.get('/orders').then(response => {
       setOrders(response.data.map((order: Food) => ({
@@ -42,7 +44,7 @@ const Orders: React.FC = () => {
 
   useEffect(() => {
     loadOrders();
-  }, []);
+  }, [isFocused]);
 
   return (
     <Container>

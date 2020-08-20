@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { FlatList } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler'
 
 interface Food {
   id: number;
@@ -12,7 +13,7 @@ interface Food {
 
 export const Container = styled.View`
   flex: 1;
-  background: #fff;
+  background: #333;
 `;
 
 export const Header = styled.View`
@@ -44,12 +45,12 @@ export const FoodList = styled(FlatList as new () => FlatList<Food>)`
   margin-top: 16px;
 `;
 
-export const Food = styled.TouchableOpacity`
+export const Food = styled(RectButton)`
   display: flex;
   flex-direction: row;
   align-items: center;
 
-  background: #f0f0f5;
+  background: #454545;
   border-radius: 8px;
 
   margin-bottom: 16px;
@@ -66,7 +67,7 @@ export const FoodImageContainer = styled.View`
 
 export const FoodContent = styled.View`
   flex: 1;
-
+  
   padding: 16px;
 `;
 export const FoodTitle = styled.Text`
@@ -76,7 +77,7 @@ export const FoodTitle = styled.Text`
   font-size: 15px;
   line-height: 22px;
 
-  color: #3d3d4d;
+  color: #EDEDE8;
 `;
 export const FoodDescription = styled.Text`
   font-family: 'Poppins-Regular';
@@ -87,7 +88,7 @@ export const FoodDescription = styled.Text`
 
   margin-top: 6px;
 
-  color: #3d3d4d;
+  color: #CCC;
 `;
 
 export const FoodPricing = styled.Text`

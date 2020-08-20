@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components/native';
+import {RectButton} from 'react-native-gesture-handler'
 
 interface CategoryItemProps {
   isSelected?: boolean;
@@ -6,7 +7,7 @@ interface CategoryItemProps {
 
 export const Container = styled.View`
   flex: 1;
-  background: #fff;
+  background: #333;
 `;
 
 export const Header = styled.View`
@@ -29,7 +30,7 @@ export const Title = styled.Text`
   font-weight: 600;
   font-size: 20px;
   line-height: 30px;
-  color: #3d3d4d;
+  color: #edede8;
   padding: 0 20px;
 `;
 
@@ -42,9 +43,9 @@ export const CategorySlider = styled.ScrollView`
 `;
 
 export const CategoryItem = styled.TouchableOpacity<CategoryItemProps>`
-  background-color: #f0f0f5;
+  background-color: #454545;
   border: 2px;
-  border-color: #f0f0f5;
+  border-color: #454545;
   height: 120px;
   width: 120px;
   border-radius: 8px;
@@ -58,7 +59,7 @@ export const CategoryItem = styled.TouchableOpacity<CategoryItemProps>`
     props.isSelected &&
     css`
       border-color: #c72828;
-      background-color: #ffebeb;
+      background-color: #544343;
     `}
 `;
 
@@ -68,7 +69,7 @@ export const CategoryItemTitle = styled.Text`
   font-size: 15px;
   line-height: 15px;
   text-align: center;
-  color: #6c6c80;
+  color: #ccc;
 `;
 
 export const FoodsContainer = styled.View`
@@ -81,11 +82,11 @@ export const FoodList = styled.View`
   margin-top: 16px;
 `;
 
-export const Food = styled.TouchableOpacity`
+export const Food = styled(RectButton)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  background: #f0f0f5;
+  background: #454545;
   border-radius: 8px;
   margin-bottom: 16px;
 `;
@@ -109,7 +110,7 @@ export const FoodTitle = styled.Text`
   font-weight: 600;
   font-size: 15px;
   line-height: 22px;
-  color: #3d3d4d;
+  color: #edede8;
 `;
 export const FoodDescription = styled.Text`
   font-family: 'Poppins-Regular';
@@ -118,7 +119,7 @@ export const FoodDescription = styled.Text`
   font-size: 10px;
   line-height: 16px;
   margin-top: 6px;
-  color: #3d3d4d;
+  color: #ccc;
 `;
 
 export const FoodPricing = styled.Text`

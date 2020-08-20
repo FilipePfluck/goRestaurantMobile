@@ -1,18 +1,21 @@
 import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
+const Tab = createMaterialTopTabNavigator()
+
 
 import Icon from 'react-native-vector-icons/Feather';
 import Dashboard from '../pages/Dashboard';
 import Favorites from '../pages/Favorites';
 import Orders from '../pages/Orders';
 
-const Tab = createBottomTabNavigator();
+//const Tab = createBottomTabNavigator();
 
 const TabRoutes: React.FC = () => (
   <Tab.Navigator
     tabBarOptions={{
-      labelPosition: 'beside-icon',
       activeTintColor: '#C72828',
       labelStyle: {
         fontFamily: 'Poppins-Regular',
@@ -20,7 +23,15 @@ const TabRoutes: React.FC = () => (
         fontWeight: '600',
       },
       inactiveTintColor: '#B7B7CC',
+      style: {
+        elevation: 0,
+        shadowOpacity: 0,
+        borderWidth: 0,
+        borderColor: "#333",
+        backgroundColor: "#333"
+    },
     }}
+    swipeEnabled
   >
     <Tab.Screen
       options={{
